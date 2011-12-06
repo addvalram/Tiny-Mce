@@ -1,0 +1,1908 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<link href='http://feeds.feedburner.com/funonrails' rel='alternate' title='Fun On Rails Blog' type='application/rss+xml'/>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+<script type="text/javascript">(function() { var a=window;function c(b){this.t={};this.tick=function(b,i,d){d=d!=void 0?d:(new Date).getTime();this.t[b]=[d,i]};this.tick("start",null,b)}var e=new c;a.jstiming={Timer:c,load:e};try{var g=null;a.chrome&&a.chrome.csi&&(g=Math.floor(a.chrome.csi().pageT));g==null&&a.gtbExternal&&(g=a.gtbExternal.pageT());g==null&&a.external&&(g=a.external.pageT);g&&(a.jstiming.pt=g)}catch(h){};a.tickAboveFold=function(b){var f=0;if(b.offsetParent){do f+=b.offsetTop;while(b=b.offsetParent)}b=f;b<=750&&a.jstiming.load.tick("aft")};var j=false;function k(){j||(j=true,a.jstiming.load.tick("firstScrollTime"))}a.addEventListener?a.addEventListener("scroll",k,false):a.attachEvent("onscroll",k);
+ })();</script>
+<meta content='true' name='MSSmartTagsPreventParsing'/>
+<meta content='blogger' name='generator'/>
+<link href='http://www.funonrails.com/favicon.ico' rel='icon' type='image/x-icon'/>
+<link href='http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html' rel='canonical'/>
+<link rel="alternate" type="application/atom+xml" title="Fun On Rails - Atom" href="http://www.funonrails.com/feeds/posts/default" />
+<link rel="alternate" type="application/rss+xml" title="Fun On Rails - RSS" href="http://www.funonrails.com/feeds/posts/default?alt=rss" />
+<link rel="service.post" type="application/atom+xml" title="Fun On Rails - Atom" href="http://www.blogger.com/feeds/5548650800003716246/posts/default" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.blogger.com/rsd.g?blogID=5548650800003716246" />
+<link rel="alternate" type="application/atom+xml" title="Fun On Rails - Atom" href="http://www.funonrails.com/feeds/2717663066292292875/comments/default" />
+<!--[if IE]> <script> (function() { var html5 = ("abbr,article,aside,audio,canvas,datalist,details," + "figure,footer,header,hgroup,mark,menu,meter,nav,output," + "progress,section,time,video").split(','); for (var i = 0; i < html5.length; i++) { document.createElement(html5[i]); } try { document.execCommand('BackgroundImageCache', false, true); } catch(e) {} })(); </script> <![endif]-->
+<title>Fun On Rails: Rails Tiny MCE - A Rich Text Editor for ruby on rails</title>
+<meta content='0bDF3ASRfcFMaDbHflii3JU5gBDfDkNoh9Q2hw3jeBM' name='google-site-verification'/>
+<meta content='Fun On Rails' property='og:title'/>
+<meta content='blog' property='og:type'/>
+<meta content='http://github.com/sandipransing/funonrails/raw/master/icons/funonrails.PNG' property='og:image'/>
+<meta content='tag A ruby and rails blog' property='og:tag fun on rails'/>
+<meta content='Fun On Rails' property='og:site_name'/>
+<meta content='149678525079745' property='fb:app_id'/>
+<link type='text/css' rel='stylesheet' href='http://www.blogger.com/static/v1/widgets/1492841994-widget_css_bundle.css' />
+<link type="text/css" rel="stylesheet" href="http://www.blogger.com/dyn-css/authorization.css?targetBlogID=5548650800003716246&zx=654cd8ac-2acd-4d21-a080-7caa32223274"/>
+<style type="text/css">
+#navbar-iframe { display:block }
+</style>
+<style id='page-skin-1' type='text/css'><!--
+/*
+
+--></style>
+<!-- Blogger Template Style Name: Daily Inspired V1 Designer: Antonio Lupetti URL: wooork.blogspot.com Date: 01 Oct 2008 -->
+<style type='text/css'>
+/* -------------------------------- */
+/* RESET HTML TAG					*/ 
+/* -------------------------------- */
+body {
+	font-family:Arial, Helvetica, sans-serif; font-size:12px;
+	color:#444444;
+	background:#c4c4c4;
+}
+body{border:0; margin:0; padding:0;}
+form{border:0; margin:0; font-size:12px;}
+form, input {padding:0}
+
+a:link, a:visited{color:#2b6690; text-decoration:none;}
+a:hover{color:#2b6690;}
+
+i{font-size:14px; font-family:Georgia, "Times New Roman", Times, serif;}
+h1,h2,h3,h4, h5 {margin:0; border:0; padding:0; color:#000; font-weight:normal;}
+h1 {font-size:32px; font-family:Georgia, "Times New Roman", Times, serif; line-height:36px; padding-bottom:20px; }
+h2 {	
+		font-family:Georgia, "Times New Roman", Times, serif;
+		font-size: 35px;
+		font-weight:normal;
+		line-height: 32px;
+		color: #369;
+		}
+	h2 a:link, h2 a:visited{color:#000000; text-decoration:none; padding-top:20px;}
+	h2 a:hover{text-decoration:underline;}
+h3 {
+	font-size:12px; 
+	border-bottom:solid 1px #DEDEDE;
+	border-top:solid 1px #DEDEDE;
+}
+	h3 div {
+	height:28px;
+	line-height:28px;
+	padding:0 8px;
+	color:#000000;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	text-transform:uppercase;
+	font-weight:bold;
+	background:#ecf3f5;
+	}
+	h3 span, h2.title {
+	height:28px;
+	line-height:28px;
+	color:#000000;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	text-transform:uppercase;
+	font-weight:bold;
+	}
+h2.title {
+	font-size:12px; 
+	border-bottom:solid 1px #DEDEDE;
+	border-top:solid 1px #DEDEDE;
+}
+	h3 a:link, h3 a:visited{font-size:11px; color:#333333; text-decoration:underline}
+	h3 a:hover{text-decoration:none;}
+	
+h4{
+	font-size:12px;
+	font-weight:bold; 
+	color:#000;
+	margin-bottom:14px;
+}
+h5{
+	font-size:12px;
+	font-weight:bold; 
+	margin-bottom:2px;
+}
+strong{
+	color:#000; 
+	text-decoration:none; 
+	font-size:16px;
+	display:block;
+	}
+
+blockquote {
+	margin: 20px; 
+	padding:0 0 0 14px;	
+	color: #666666; 
+	border-left: 2px solid #999999;
+}
+
+ul,li{margin:0; border:0; padding:0;}
+ul{margin-bottom:20px;}
+li{list-style:none; display:block;}
+
+div.code, pre, code, console{font-family:"Courier New", Courier, monospace; font-size:13px;  border: 1px dashed #CCC; overflow: auto; padding: 8px 4px 8px 26px; line-height:16px; max-width:620px;white-space: pre; display:block;}
+
+pre.ruby, code{color:#000000; background:#f5f8fa url(http://s2.wp.com/wp-content/themes/pub/inove/img/blockquote.gif) no-repeat;}
+pre.console, console{color:#ECF3F5; background:#232323;}
+
+/* -------------------------------- */
+/* PAGE ELEMENTS 					*/ 
+/* -------------------------------- */
+/* Top Section  					*/
+
+#main-cont{
+	padding:10px;
+	margin:0 auto;
+	width:940px;
+	background:#FFFFFF;
+}
+#container-header{
+	background:#FFFFFF;
+}
+#container, #nav-bar, 
+.container-top, #footer{
+	width:938px;
+	margin:0 auto;
+	padding:0 14px;
+	}
+.container-top{
+	padding:0px;
+	width:938px;
+}
+#container{padding:0px; border:solid 1px #DEDEDE; background:#FFFFFF; border-top:none;}
+#top_bar {
+	width:auto;
+	height:120px;
+	color:#888888;
+	text-align:right;
+	background:url() left bottom no-repeat;
+}
+
+#search-bar{border:solid 1px #DEDEDE; border-top:none; background:#EFEFEF; padding:4px; font-size:12px;}
+
+/* Search Field   					*/
+.search-field {font-size:11px;}
+	.search-field a:link, .search-field a:visited {text-decoration:underline;}
+	.search-field a:hover {text-decoration:none;}
+	
+	.searchbutton{
+		border:0;
+		margin:0;
+		padding:0;
+		background:url(http://lh6.ggpht.com/antonio.lupetti/SIMf63pTlvI/AAAAAAAABxc/xeTIdlShAK0/submit.png);
+		width:72px;
+		height:25px;
+		text-align:center;
+		color:#FFFFFF;
+		font-size:11px;
+		font-weight:bold;
+}
+	
+/* Navbar   					*/
+.container-nav-bar { }
+#nav-bar {
+	font-size:11px;
+	color:#333333;
+	height:26px;
+	padding:0px;
+	width:938px;
+	background:#ecf3f5;
+	border:solid 1px #DEDEDE;
+}
+	#nav-bar a:link, #nav-bar a:visited {
+	color:#000000;
+	text-decoration:none;
+	font-size:11px;
+	text-transform:uppercase;
+	font-weight:bold;
+	margin-right:2px;
+	border-right:solid 1px #DEDEDE;
+	}
+	#nav-bar a:hover {color:#666666;}
+	
+	/* ------------------------ */
+	/* Tabbed Bar   			*/
+	.tabbed-bar{
+		background:url() top left no-repeat;
+		height:26px;
+		line-height:26px;
+		float:left;
+		display:block;
+		width:auto;
+		padding-left:8px;
+}
+	* html .tabbed-bar, * html .tabbed-bar div{display:block; float:left;}
+	.tabbed-bar div{
+		background:url() top right no-repeat;
+		height:26px;
+		line-height:26px;
+		padding-right:8px;
+	}
+	.tabbed-bar a:link, .tabbed-bar a:visited{
+		color:#ca0002; text-decoration:none;
+	}
+	.tabbed-bar a:hover, .tabbed-bar a:hover{
+		text-decoration:underline;;
+	}	
+	
+.container-woork-int{
+	background:#A7C4D1;
+	height:138px;
+	width:906px;
+	margin:0 auto;
+}
+
+.feedh3{ height:18px;
+	background:url(http://lh4.ggpht.com/antonio.lupetti/SN--L3OhJdI/AAAAAAAACZw/XeTo8zNAOII/facebook.png) left no-repeat; padding:0 20px; padding-right:10px;
+}
+.comment{
+	background:url(http://lh6.ggpht.com/antonio.lupetti/SNQGMdkQg7I/AAAAAAAACXA/_Jw1EBcR94E/comments.png) no-repeat 10px top;
+	margin-left:10px;
+	border-left:solid 1px #DEDEDE;
+	padding-left:36px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:12px;
+	line-height:16px;
+	}
+	.comment a:link, .comment a:visited{color:#000000;}
+	
+.read_more{
+	background:url(http://lh6.ggpht.com/antonio.lupetti/SNQGMdkQg7I/AAAAAAAACXA/_Jw1EBcR94E/comments.png) no-repeat 10px top;
+	padding-left:36px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:14px;
+	line-height:16px;
+	display:block;
+	margin-top:10px;
+	text-align:left;
+	}
+.read_more a:link, .read_more a:visited{text-decoration:underline;}
+
+/* -------------------------------- */
+/* Main				  				*/
+
+	*html #main_page{overflow:auto;}
+	/* * html #main {height: 1%;} */
+	/* -------------------------------- */
+	/* Left column		  				*/
+	#main_left {
+	width:651px;
+	padding:16px;
+	float:left;
+	line-height:18px;
+	display:inline;
+	border-right:solid 1px#DEDEDE;
+	}
+	#main_left em{color:#000000; font-style:normal; background:#fbfbdd;}
+        #main_left em{width:100%;}
+        #main_left table{display:inline;float:left;}
+	/* -------------------------------- */
+	/* Right column 				*/		
+	#main_right {
+	width:254px;
+	float:left;
+	font-size:12px;
+	}
+	#main_right .section-w{
+		border-top:none;
+		padding:14px;
+		padding-bottom:5px;
+		background:url(http://lh4.ggpht.com/antonio.lupetti/SLnWVfhpq4I/AAAAAAAACJ0/fYNSkKq3dtE/bg-section-bottom.png) bottom no-repeat #FFFFFF ;
+	}
+	#main_right .section-w a{text-decoration:underline;}
+	#main_right .section-w a:hover{text-decoration:none;}
+	
+	#recent-entries li, #site-reviews li, div.twitter_list ul li, #categories li, #small-feed ul li, .sharepost ul-li{
+		padding-bottom:6px;
+		border-bottom:solid 1px #DEDEDE;
+		margin-bottom:6px;
+	}
+	#small-feed{font-size:11px;}
+	#recent-entries li, div.twitter_list ul li, #small-feed ul li, #categories li{
+		background:url(http://lh3.ggpht.com/antonio.lupetti/SNQa8dk5SXI/AAAAAAAACXI/cBUmSOXAIWg/bull.png) no-repeat left 5px;
+		padding-left:10px;
+	}
+	#recent-entries a:link, #recent-entries a:visited,
+	#site-reviews a:link, #site-reviews a:visited,
+	#categories a:link, #categories a:visited,
+	div.twitter_list ul li a:link, div.twitter_list ul li a:visited{text-decoration:none;}
+	
+	#recent-entries li a:hover, div.twitter_list ul li a:hover, 
+	#categories li a:hover,	#site-reviews li a:hover {text-decoration:underline; color:#53524b;}
+
+#start_message{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:26px;
+	line-height:26px;
+	color:#000;
+	margin-bottom:8px;
+	padding-bottom:8px;
+}
+#start_message small{ color:#666666; font-size:18px; line-height:22px; display:block; padding-top:20px;}
+/* -------------------------------- */
+/* Footer							*/
+#container-footer{
+	background:#555555;
+	clear:both;
+}
+	#footer{
+	font-size:12px;
+	line-height:18px;
+	color:#CCCCCC;
+	padding:20px 0;
+	width:906px;
+	}
+	#footer a:link, #footer a:visited{
+	color:#FFFFFF;
+	text-decoration:underline;
+	}
+        #footer td{
+        vertical-align:top;
+        }
+/* -------------------------------- */
+/* BLOGGER ELEMENT 					*/ 
+/* -------------------------------- */
+#navbar{display:none; height:0; visibility:hidden;}
+
+.date-header{
+	color:#555555; 
+	font-size:13px;
+	padding:0px;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	text-transform:uppercase;
+}
+.blog-pager{font-size:14px;}
+.blog-pager a:link, .blogpager a:visited{font-weight:bold; border-bottom:dotted 1px #999999;}
+/* -------------------------------- */
+/* Status Messages	 				*/
+.status-msg-wrap-n{
+	padding:0px; 
+	margin:0px; 
+	}
+.status-msg-body-n{
+	width:auto;
+	display:block;
+	font-size:12px;
+	height:36px;
+	line-height:36px;
+}
+/* -------------------------------- */
+/* Post Body		  				*/
+.post-body-n {
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:15px; 
+	line-height:22px;
+	color:#000000;
+}
+	.post-body-n a:link, .post-body-n a:visited {text-decoration:underline;}
+	.post-body-n a:hover{text-decoration:none;}
+/* -------------------------------- */
+/* Comments section  				*/ 
+	.comment-author{color:#333333; font-size:13px; background:#f5f8fa; padding:4px; font-weight:bold; text-decoration:none;}
+	.comment-author a:link, .comment-author a:visited, 
+	.comment-author a:hover{
+		font-weight:bold; color:#000000; border-bottom:solid 1px #80a8ba; 
+		padding-bottom:2px; text-decoration:none;} 
+	.comment-footer a:link, .comment-footer a:visited{
+		font-size:12px; font-weight:bold; color:#FFFFFF; text-align:center; display:block; clear:both;
+		width:137px; height:36px; line-height:36px;
+		background:url(http://lh4.ggpht.com/antonio.lupetti/SINhI8n9vsI/AAAAAAAAByA/bjffNrH852s/comment.png) no-repeat;}
+	.comment-timestamp{font-size:13px; color:#333333;}
+	.comment-timestamp a:link, .comment-timestamp a:visited {
+		font-size:13px; color:#999999; background:none; width:auto; height:auto;
+		text-align:left; font-weight:normal;
+	}
+	.post-comment-link{ }
+	a.comment-link{
+	font-weight: bold;
+	}
+	dd{margin:0; border:0; padding:0; padding:0 10px; background:#FFFFFF;}
+	dd.comment-body{border:solid 2px #f5f8fa; border-bottom:none; border-top:none;}
+	dd.comment-body p{border:0; padding:0; margin:0; padding:10px 0;}
+	dd.comment-footer{border:solid 2px #f5f8fa; border-top:none; margin-bottom:10px;}
+
+/* -------------------------------- */
+/* CUSTOM CLASSES					*/ 
+/* -------------------------------- */
+div.spacer{clear:both; height:10px; display:block;}
+div.tag{font-size:11px; padding-top:5px; color:#999999; margin-bottom:10px;}
+.bigInt{font-size:18px; color:#000000; line-height:24px;}
+
+.face{float:left; margin-right:14px; border:solid 1px #DEDEDE;}
+.delsquare{
+	font-weight:bold;
+	color:#000000;
+}
+/* -------------------------------- */
+/* Feed				  				*/
+.feedinput{
+	margin:0;
+	padding:3px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#53524b;
+	border:solid 1px #CCCCCC;
+}
+*html .feedinput{
+	padding:0;
+	height:23px;
+	margin-top:-1px;
+}
+.feed-small-right, .small-right{
+	font-size:12px;
+	float:right;
+	font-weight:normal;
+	background:url(http://lh3.ggpht.com/antonio.lupetti/SN-_wboev3I/AAAAAAAACZ4/yF7pi2LSAEQ/feedh3.png) right 6px no-repeat;
+	padding-right:26px;
+	color:#999999;
+	font-family:Arial, Helvetica, sans-serif;
+	text-transform:none;
+}
+.feed-small-right a{ font-weight:bold;}
+.small-right{background:none;}
+
+
+/* -------------------------------- */
+/* ADS link	  						*/
+.ads{padding:8px; border:solid 1px #DEDEDE; margin-left:10px; margin-bottom:10px; float:right;}
+.top-ads{width:160px; height:50px; padding:20px; background:url(http://lh6.ggpht.com/antonio.lupetti/SNZAwVJmaMI/AAAAAAAACYQ/0lN273fJ7Jc/ads-bg.png); font-size:12px; text-align:center; font-weight:bold;}
+</style>
+<script src='http://files.bloggerplugins.org/excerpt.js' type='text/javascript'></script>
+<!-- related posts -->
+<!--Related Posts Scripts and Styles Start-->
+<!--Remove-->
+<style>
+#related-posts {
+float:center;
+text-transform:none;
+height:100%;
+min-height:100%;
+padding-top:5px;
+padding-left:5px;
+}
+#related-posts .widget{
+padding-left:6px;
+margin-bottom:10px;
+
+}
+#related-posts .widget h2, #related-posts h2{
+font-size: 1.6em;
+font-weight: bold;
+color: black;
+font-family: Georgia, &#8220;Times New Roman&#8221;, Times, serif;
+margin-bottom: 0.75em;
+margin-top: 0em;
+padding-top: 0em;
+}
+#related-posts a{
+color:blue;
+}
+#related-posts a:hover{
+color:blue;
+}
+#related-posts ul{
+list-style-type:none;
+margin:0 0 0px 0;
+padding:0px;
+text-decoration:bold;
+font-size:15px;
+text-color:#000000
+}
+#related-posts ul li{
+background:transparent url(http://2.bp.blogspot.com/_u4gySN2ZgqE/SnZhv_C6bTI/AAAAAAAAAl4/Rozt7UhvgOo/s200/greentickbullet.png) no-repeat ;
+display:block;
+list-style-type:none;
+margin-bottom: 13px;
+padding-left: 30px;
+padding-top:0px;}
+</style>
+<script type='text/javascript'>
+var relatedpoststitle="Related Posts";
+</script>
+<script src='http://blogergadgets.googlecode.com/files/related.js' type='text/javascript'></script>
+<!--Remove-->
+<!--Related Posts Scripts and Styles End-->
+<!--LINK-OPACITY-STARTS-->
+<style type='text/css'>
+
+a.linkopacity img {
+filter:alpha(opacity=50);
+-moz-opacity: 0.5; 
+opacity: 0.5;
+-khtml-opacity: 0.5;}
+
+a.linkopacity:hover img {
+filter:alpha(opacity=100); 
+-moz-opacity: 1.0; 
+opacity: 1.0;
+-khtml-opacity: 1.0; }
+
+</style>
+<!--LINK-OPACITY-STOPS-http://bloggerstop.net-->
+<!--PAGINATION-STARTS-->
+<link href='http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/pagination2.css' rel='stylesheet' type='text/css'/>
+<style type='text/css'>
+.showpage a:hover {
+color: #FFFFFF;
+background-color: #92416C;
+}
+// STYLE CODE FOR SELECTED PAGE STARTS
+.showpagePoint {
+color: #FFFFFF;
+background: #92416C;
+border: 1px solid #92416C;
+}
+// STYLE CODE FOR NUMBER BUTTONS STARTS
+.showpageNum a:link,.showpage a:link {
+color: #000000 !important;
+background-color: #92416C;
+border: 1px solid #92416C;
+} 
+// HOVER CODE for NUMBER BUTTONS
+.showpageNum a:hover {
+color: #FFFFFF !important;
+background: #92416C !important;
+border: 1px solid #92416C;
+}
+// STYLE CODE FOR "PREV and NEXT" BUTTONS STARTS
+.showpageArea a {
+border: 1px solid #92416C;
+}
+// HOVER CODE for NEXT-PREV BUTTONS
+.showpageArea a:hover {
+border: 1px solid #92416C;
+color: #FFFFFF !important;
+background: #92416C !important;
+}
+/* About Author Blogger Code by Cheth Studios */
+.authbio{
+color: #666;
+font-weight: normal;
+font-size:0.9em;
+background: #fff;
+border: 1px solid #ccc;
+width: 640px;
+padding: 5px;
+margin-bottom:25px;
+
+}
+
+.authbio a{
+
+text-decoration:underline;
+
+}
+img.alignleft {
+float:left;
+background-color: #c4e3e0;
+border:1px solid #c4e3e0;
+padding: 5px;
+
+margin-left:2px;
+margin-top:0px;
+margin-bottom:25px;
+margin-right:12px;
+
+}
+
+/* About Author Blogger Code by Cheth Studios End */
+</style>
+<!--PAGINATION-STOPS-http://bloggerstop.net-->
+<link href='http://github.com/sandipransing/funonrails/raw/master/favicon.ico' rel='icon' type='image/vnd.microsoft.icon'/>
+<script type="text/javascript">(function(){var a;var b=navigator.userAgent;a=b.indexOf("Mobile")!=-1&&b.indexOf("WebKit")!=-1&&b.indexOf("iPad")==-1?true:b.indexOf("Opera Mini")!=-1?true:false;if(a){var c;a:{var d=window.location.href,e=d.split("?");switch(e.length){case 1:c=d+"?m=1";break a;case 2:c=e[1].search("(^|&)m=")>=0?null:d+"&m=1";break a;default:c=null}}c&&window.location.replace(c)};})();
+</script><script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('headEnd');
+</script></head>
+<body>
+<div class='navbar section' id='navbar'><div class='widget Navbar' id='Navbar1'><script type="text/javascript">
+    function setAttributeOnload(object, attribute, val) {
+      if(window.addEventListener) {
+        window.addEventListener("load",
+          function(){ object[attribute] = val; }, false);
+      } else {
+        window.attachEvent('onload', function(){ object[attribute] = val; });
+      }
+    }
+  </script>
+<iframe src="http://www.blogger.com/navbar.g?targetBlogID=5548650800003716246&amp;blogName=Fun+On+Rails&amp;publishMode=PUBLISH_MODE_HOSTED&amp;navbarType=SILVER&amp;layoutType=LAYOUTS&amp;searchRoot=http://www.funonrails.com/search&amp;blogLocale=en&amp;homepageUrl=http://www.funonrails.com/&amp;targetPostID=2717663066292292875&amp;vt=-7232708365361038438" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" height="30px" width="100%" id="navbar-iframe" allowtransparency="true" title="Blogger Navigation and Search"></iframe>
+<div></div></div></div>
+<div id='main-cont'>
+<div id='container-header'>
+<div class='container-top'>
+<!-- Nav Bar -->
+<table border='0' cellpadding='0' cellspacing='0' width='100%'>
+<tr>
+<td valign='top'><table border='0' cellpadding='0' cellspacing='0' width='100%'>
+<tr>
+<td align='left' height='100'>
+<h2 style='font-weight:bold;line-height:38px;'>Fun On Rails</h2>
+<div class='spacer'></div>
+<h3 style='font-size:15px;'>A Ruby and Rails Blog</h3>
+</td>
+</tr>
+</table></td>
+</tr>
+</table>
+</div>
+<div class='container-nav-bar'>
+<div id='nav-bar'>
+<!-- Navbar -->
+<div id='tabbed-bar'>
+<!-- NAVIGATION BAR LINKS -->
+<a class='tabbed-bar' href='http://www.funonrails.com'><div>Home</div></a>
+<a class='tabbed-bar' href='http://www.funonrails.com/2009/11/ruby-on-rails-developers-in-india.html'><div>Rails Developers in India</div></a>
+<a class='tabbed-bar' href='http://www.funonrails.com/2010/02/about.html'><div>About</div></a>
+<a class='tabbed-bar' href='https://github.com/sandipransing/buildyourcv/raw/master/sandipror_cv.pdf' title='resume of Sandip Ransing in PDF'> MY CV </a>
+<a class='tabbed-bar' href='http://www.funonrails.com/2010/03/contact-me.html'>
+<div>Contact me</div></a>
+<a class='tabbed-bar' href='http://feeds.feedburner.com/funonrails'><div>Feed RSS</div></a>
+</div>
+<!-- SEARCH FIELD -->
+<div style='float:right;'>
+<form action='http://www.funonrails.com/search' method='get'>
+<table border='0' cellpadding='0' cellspacing='0'>
+<tr>
+<td align='right' width='170'><input class='feedinput' name='q' size='21' style='' type='text'/></td>
+<td align='right' width='70'><input id='imageField' name='imageField' src='http://lh5.ggpht.com/antonio.lupetti/SNY-tvBA22I/AAAAAAAACYI/gyf5_mLZFcs/search-2.png' type='image'/>
+<input name='max-results' type='hidden' value='10'/></td>
+</tr>
+</table>
+</form>
+</div>
+</div>
+</div>
+</div>
+<div id='container'>
+<table border='0' cellpadding='0' cellspacing='0' width='100%'>
+<tr><td>
+<div id='main_page'>
+<div id='main_left'>
+<table border='0' cellpadding='0' cellspacing='0'>
+<tr><td>
+<!-- START[Home Page Section]-->
+<div class='section' id='DownLink1'></div>
+<!-- END[Home Page Section]-->
+<div class='section' id='main_s'><div class='widget Blog' id='Blog1'>
+<div class='blog-posts hfeed'>
+<!-- google_ad_section_start -->
+<h2 class='date-header'>Saturday, March 6, 2010</h2>
+<div class='post hentry'>
+<div class='spacer'></div>
+<a name='2717663066292292875'></a>
+<h2>
+<a href='http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html'>Rails Tiny MCE - A Rich Text Editor for ruby on rails</a>
+</h2>
+<div class='spacer'></div>
+<i>by <a href='http://www.funonrails.com/2010/02/about.html'>Sandip Ransing</a></i>
+<span class='comment'>
+<b><a class='comment-link' href='http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html#comment-form' onclick=''>
+0
+</a></b>
+ comments
+</span>
+<div style='font-family:Georgia; font-size:13px;'>
+<b style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:5px;'>Tags</b>
+<a href='http://www.funonrails.com/search/label/rails?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>rails</a>
+<a href='http://www.funonrails.com/search/label/rich%20text%20editor?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>rich text editor</a>
+<a href='http://www.funonrails.com/search/label/ruby?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>ruby</a>
+<a href='http://www.funonrails.com/search/label/rubyonrails?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>rubyonrails</a>
+<a href='http://www.funonrails.com/search/label/tinyMCE?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>tinyMCE</a>
+<a href='http://www.funonrails.com/search/label/WYSIWYG?max-results=10' rel='tag' style='border-right:solid 1px #CCCCCC; padding-right:10px; margin-right:10px;'>WYSIWYG</a>
+</div>
+<div>
+<table><tr><td>
+<a class='twitter-share-button' data-count='horizontal' data-via='funonrails' href='http://twitter.com/share'>Tweet</a><script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script></td><td style='vertical-align:top;padding-top:4px;'>
+<script src='http://connect.facebook.net/en_US/all.js#xfbml=1'></script><fb:like layout='button_count' show_faces='false'></fb:like>
+</td>
+<td>
+<script type='text/javascript'>
+	var authorId = "E1386998-43FD-47D6-94A5-9AFB5995C0A5";
+	var pageOrientation = "0";
+	var topMargin = "0.5";
+	var bottomMargin = "0.5";
+	var leftMargin = "0.5";
+	var rightMargin = "0.5";
+</script>
+<script src='http://savepageaspdf.pdfonline.com/pdfonline/pdfonline.js' type='text/javascript'>
+</script>
+</td></tr></table>
+</div>
+<div class='clear'></div>
+<div class='post-body-n'>
+<div style='text-align:justify;'>
+<p><span class="Apple-style-span" style="font-family: helvetica, arial, freesans, clean, sans-serif; font-size: 13px; line-height: 18px;"></span><br />
+<h1 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: initial !important; border-top-style: none !important; border-top-width: initial !important; font-size: 23px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.25em !important;">
+
+
+
+
+
+
+RailsTinyMCE - A Rich Text Editor for ruby on rails</h1>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+TinyMCE is a javascript rich text editor. It is easy to integrate with blogs, cms, messages and mailers.</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Plugin uses jrails(jquery) and paperclip plugin for upload support.</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Features</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Provides rich text editor</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Customisable TinyMCE plugins</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Easy to integrate</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Supports Image upload &amp; insert</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Supports Media upload &amp; Youtube embed</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">TODO: Document upload plugin</li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+1. Install rails_tiny_mce plugin using</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">./script/plugin install git://github.com/sandipransing/rails_tiny_mce.git
+./script/generate rails_tiny_mce_migration
+rake db:migrate</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+2. Install jrails(jquery) plugin using</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">./script/plugin install git://github.com/aaronchi/jrails.git</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+3. Install dependent plugins(if you didn't)</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">rake rails_tiny_mce:plugins</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Above command will copy&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">paperclip, responds_to_parent, will_paginate</em>&nbsp;plugins to vendor/plugins directory.</div>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">paperclip</strong>&nbsp;git://github.com/thoughtbot/paperclip.git</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">responds_to_parent</strong>&nbsp;http://responds-to-parent.googlecode.com/svn/trunk</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">will_paginate</strong>&nbsp;git://github.com/mislav/will_paginate.git</li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+4. In your layout add following lines</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">&lt;%= javascript_include_tag :defaults %&gt;
+&lt;%= javascript_include_tiny_mce_if_used %&gt;
+&lt;%= tiny_mce if using_tiny_mce? %&gt;</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+5. Inside controller class on top add following lines</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">uses_tiny_mce(:options =&gt; AppConfig.default_mce_options, :only =&gt; [:new, :edit])</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+This AppConfig.default_mce_options is in&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">config/initializers/tiny_mce_plus_config.rb</em>, you could change the setting there</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+6. In your view add class mceEditor to text_area</h2>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Then append the following to the text area you want to transform into a TinyMCE editor.</div>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">:class =&gt; "mceEditor"</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+7. Install file lists</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">rake rails_tiny_mce:install</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+will Install following files:</div>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">app
+  |-- controller
+    |-- attachments_controller.rb
+  |-- helpers
+    |-- remote_link_renderer.rb
+  |-- models
+    |-- print.rb
+    |-- video.rb
+  |-- views
+    |-- attachments
+       |-- _show_attachment_list.html.erb
+config
+  |-- initializers
+    |-- tiny_mce_plus_config.rb
+public
+  |-- images
+    |-- tiny_mce
+  |-- javascripts
+    |-- tiny_mce</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+You may custom the config in tiny_mce_plus_config.rb.</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Attention Note:</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Do not put&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">&lt;p&gt; &lt;/p&gt;</em>&nbsp;around the textarea.</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">If you are using&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">old will_paginate plugin</em>, change the&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">url_for</em>&nbsp;to&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">url_option</em>&nbsp;in&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">remote_link_renderer.rb</em></li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Example use:</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Create CRUD for post</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+./script/generate scaffold post title:string text:description</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Run Migrations</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+rake db:migrate</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Add following line to&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">posts_controller.rb</em></div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+uses_tiny_mce(:options =&gt; AppConfig.default_mce_options, :only =&gt; [:new, :edit])</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Open&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">/views/posts/new.html.erb</em>&nbsp;and&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">/views/posts/edit.html.erb</em></div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Modifiy following line</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+&lt;%= f.text_area :description %&gt; to &lt;%= f.text_area :description, :class =&gt; "mceEditor" %&gt;</div>
+</li>
+</ul></p>
+<div style='clear: both;'></div>
+</div>
+</div>
+<div class='post-footer'>
+<p class='post-footer-line post-footer-line-1'>
+<div id='related-posts'>
+<script src='/feeds/posts/default/-/rails?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script>
+<script src='/feeds/posts/default/-/rich text editor?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script>
+<script src='/feeds/posts/default/-/ruby?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script>
+<script src='/feeds/posts/default/-/rubyonrails?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script>
+<script src='/feeds/posts/default/-/tinyMCE?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script>
+<script src='/feeds/posts/default/-/WYSIWYG?alt=json-in-script&callback=related_results_labels&max-results=6' type='text/javascript'></script><a href='http://www.bloggerplugins.org/2009/08/related-posts-for-blogger-widget.html' style='display:none'>Related Posts Widget</a>
+<script type='text/javascript'>
+var currentposturl="http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html";
+var maxresults=5;
+removeRelatedDuplicates(); printRelatedLabels();
+</script>
+</div>
+<span class='post-timestamp'>
+at
+<a class='timestamp-link' href='http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html' rel='bookmark' title='permanent link'><abbr class='published' title='2010-03-06T04:18:00+05:30'>4:18 AM</abbr></a>
+</span>
+<img border='0' height='50' src='http://3.bp.blogspot.com/_WmOmsgqsanw/S5_-jl5_4TI/AAAAAAAAAKM/b-BX9dz4Oag/s200/forsignature.png' width='200'/>
+<span class='post-icons'>
+<span class='item-action'>
+<a href='http://www.blogger.com/email-post.g?blogID=5548650800003716246&postID=2717663066292292875' title='Email Post'>
+<span class='email-post-icon'>&#160;</span>
+</a>
+</span>
+<span class='item-control blog-admin pid-1623837017'>
+<a href='http://www.blogger.com/post-edit.g?blogID=5548650800003716246&postID=2717663066292292875&from=pencil' title='Edit Post'>
+<span class='quick-edit-icon'>&#160;</span>
+</a>
+</span>
+</span>
+</p>
+<p class='post-footer-line post-footer-line-3'>
+</p><br/>
+</div>
+</div>
+<div id='backlinks-container' style='font-size:12px;'>
+<div id='Blog1_backlinks-container'>
+<a name='links'></a><h4>
+</h4>
+<p class='comment-footer'>
+<a class='comment-link' href='' id='Blog1_backlinks-create-link' target='_blank'>
+</a>
+</p>
+</div>
+</div>
+<div class='comments' id='comments'>
+<a name='comments'></a>
+<div id='disqus_thread'></div>
+<div id='disqus_post_title' style='display:none;'>Rails Tiny MCE - A Rich Text Editor for ruby on rails</div>
+<div id='disqus_post_message' style='display:none;'><span class="Apple-style-span" style="font-family: helvetica, arial, freesans, clean, sans-serif; font-size: 13px; line-height: 18px;"></span><br />
+<h1 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: initial !important; border-top-style: none !important; border-top-width: initial !important; font-size: 23px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.25em !important;">
+
+
+
+
+
+
+RailsTinyMCE - A Rich Text Editor for ruby on rails</h1>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+TinyMCE is a javascript rich text editor. It is easy to integrate with blogs, cms, messages and mailers.</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Plugin uses jrails(jquery) and paperclip plugin for upload support.</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Features</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Provides rich text editor</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Customisable TinyMCE plugins</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Easy to integrate</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Supports Image upload &amp; insert</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Supports Media upload &amp; Youtube embed</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">TODO: Document upload plugin</li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+1. Install rails_tiny_mce plugin using</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">./script/plugin install git://github.com/sandipransing/rails_tiny_mce.git
+./script/generate rails_tiny_mce_migration
+rake db:migrate</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+2. Install jrails(jquery) plugin using</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">./script/plugin install git://github.com/aaronchi/jrails.git</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+3. Install dependent plugins(if you didn't)</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">rake rails_tiny_mce:plugins</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Above command will copy&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">paperclip, responds_to_parent, will_paginate</em>&nbsp;plugins to vendor/plugins directory.</div>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">paperclip</strong>&nbsp;git://github.com/thoughtbot/paperclip.git</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">responds_to_parent</strong>&nbsp;http://responds-to-parent.googlecode.com/svn/trunk</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><strong style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">will_paginate</strong>&nbsp;git://github.com/mislav/will_paginate.git</li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+4. In your layout add following lines</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">&lt;%= javascript_include_tag :defaults %&gt;
+&lt;%= javascript_include_tiny_mce_if_used %&gt;
+&lt;%= tiny_mce if using_tiny_mce? %&gt;</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+5. Inside controller class on top add following lines</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">uses_tiny_mce(:options =&gt; AppConfig.default_mce_options, :only =&gt; [:new, :edit])</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+This AppConfig.default_mce_options is in&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">config/initializers/tiny_mce_plus_config.rb</em>, you could change the setting there</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+6. In your view add class mceEditor to text_area</h2>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Then append the following to the text area you want to transform into a TinyMCE editor.</div>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">:class =&gt; "mceEditor"</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+7. Install file lists</h2>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">rake rails_tiny_mce:install</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+will Install following files:</div>
+<pre style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: solid !important; border-bottom-width: 1px !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: solid !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: solid !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: solid !important; border-top-width: 1px !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; overflow-x: auto !important; overflow-y: auto !important; padding-bottom: 0.5em !important; padding-left: 0.5em !important; padding-right: 0.5em !important; padding-top: 0.5em !important;"><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;"><span class="Apple-style-span" style="font-size: small;">app
+  |-- controller
+    |-- attachments_controller.rb
+  |-- helpers
+    |-- remote_link_renderer.rb
+  |-- models
+    |-- print.rb
+    |-- video.rb
+  |-- views
+    |-- attachments
+       |-- _show_attachment_list.html.erb
+config
+  |-- initializers
+    |-- tiny_mce_plus_config.rb
+public
+  |-- images
+    |-- tiny_mce
+  |-- javascripts
+    |-- tiny_mce</span></code><code style="background-color: rgb(248, 248, 255) !important; border-bottom-color: rgb(222, 222, 222) !important; border-bottom-style: none !important; border-bottom-width: 1px !important; border-color: initial !important; border-left-color: rgb(222, 222, 222) !important; border-left-style: none !important; border-left-width: 1px !important; border-right-color: rgb(222, 222, 222) !important; border-right-style: none !important; border-right-width: 1px !important; border-top-color: rgb(222, 222, 222) !important; border-top-style: none !important; border-top-width: 1px !important; border-width: initial !important; color: rgb(68, 68, 68) !important; font-size: 12px; font: normal normal normal 115%/normal Monaco, 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px !important; padding-left: 0px !important; padding-right: 0px !important; padding-top: 0px !important;">
+</code></pre>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+You may custom the config in tiny_mce_plus_config.rb.</div>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Attention Note:</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">Do not put&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">&lt;p&gt; &lt;/p&gt;</em>&nbsp;around the textarea.</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">If you are using&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">old will_paginate plugin</em>, change the&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">url_for</em>&nbsp;to&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">url_option</em>&nbsp;in&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">remote_link_renderer.rb</em></li>
+</ul>
+<h2 style="border-bottom-width: 0px !important; border-color: initial !important; border-left-width: 0px !important; border-right-width: 0px !important; border-style: initial !important; border-top-color: rgb(224, 224, 224) !important; border-top-style: solid !important; border-top-width: 4px !important; font-size: 20px; line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 1.5em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0.5em !important;">
+
+
+
+
+
+
+Example use:</h2>
+<ul style="line-height: 1.4em; margin-bottom: 1em !important; margin-left: 2em !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Create CRUD for post</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+./script/generate scaffold post title:string text:description</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Run Migrations</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+rake db:migrate</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Add following line to&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">posts_controller.rb</em></div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+uses_tiny_mce(:options =&gt; AppConfig.default_mce_options, :only =&gt; [:new, :edit])</div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Open&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">/views/posts/new.html.erb</em>&nbsp;and&nbsp;<em style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">/views/posts/edit.html.erb</em></div>
+</li>
+<li style="line-height: 1.4em; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;"><br />
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+Modifiy following line</div>
+<div style="line-height: 1.5em !important; margin-bottom: 1em !important; margin-left: 0px !important; margin-right: 0px !important; margin-top: 1em !important; padding-bottom: 0px; padding-left: 0px; padding-right: 0px; padding-top: 0px;">
+&lt;%= f.text_area :description %&gt; to &lt;%= f.text_area :description, :class =&gt; "mceEditor" %&gt;</div>
+</li>
+</ul></div>
+<script type='text/javascript'>
+                var disqus_url = 'http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html';
+                var disqus_title = document.getElementById('disqus_post_title').innerHTML;
+                var disqus_message = document.getElementById('disqus_post_message').innerHTML;
+        </script>
+<script src='http://disqus.com/forums/funonrails/embed.js' type='text/javascript'></script>
+<noscript><a href='http://funonrails.disqus.com/?url=http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html'>View the entire comment thread.</a></noscript>
+<a class='dsq-brlink' href='http://disqus.com'>blog comments powered by <span class='logo-disqus'>Disqus</span></a>
+</div>
+<!-- google_ad_section_end -->
+</div>
+<div class='blog-pager' id='blog-pager'>
+<a class='blog-pager-newer-link' href='http://www.funonrails.com/2010/03/blogger-tips.html' id='Blog1_blog-pager-newer-link' title='Newer Post'>Newer Post</a> |
+<a class='blog-pager-older-link' href='http://www.funonrails.com/2010/03/page-cache-control-in-radiant-cms.html' id='Blog1_blog-pager-older-link' title='Older Post'>Older Post</a> |
+<a class='home-link' href='http://www.funonrails.com/'>Home</a> |
+</div>
+<div class='clear'></div>
+</div></div>
+<div class='section' id='DownLink2'><div class='widget HTML' id='HTML3'>
+<div class='widget-content'>
+<div class="authbio">
+<div style="float: left;margin-right:5px;">
+<img alt="" src="http://github.com/sandipransing/funonrails/raw/master/authors/sandipransing.png" height="106" width="110" />
+</div>
+<h1>
+About The Author</h1>
+Sandip is a ruby on rails developer based in pune and also a blogger at <a href="http://funonrails.com/">funonrails</a>. Opensource contributor and working with Josh software Private Limited. for more info <a href="http://www.funonrails.com/2010/02/about.html">read</a> Follow <a href="http://twitter.com/sandipransing">Sandip on Twitter</a> for updates.
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=HTML&widgetId=HTML3&action=editWidget&sectionId=DownLink2' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML3"));' target='configHTML3' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget AdSense' id='AdSense1'>
+<div class='widget-content'>
+<script type="text/javascript"><!--
+google_ad_client="pub-2281736535196837";
+google_ad_host="pub-1556223355139109";
+google_ad_width=468;
+google_ad_height=60;
+google_ad_format="468x60_as";
+google_ad_type="text_image";
+google_ad_host_channel="0001";
+google_color_border="CCCCCC";
+google_color_bg="FFFFFF";
+google_color_link="000000";
+google_color_url="666666";
+google_color_text="333333";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=AdSense&widgetId=AdSense1&action=editWidget&sectionId=DownLink2' onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense1"));' target='configAdSense1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</td></tr>
+</table>
+</div>
+<!-- END POST BODY -->
+<!-- Right Column -->
+<div id='main_right'>
+<div class='section-w' id='feedrss'>
+<center>
+<a href='http://feeds.feedburner.com/funonrails'><img alt='' height='26' src='http://feeds.feedburner.com/~fc/funonrails?bg=99CCFF&fg=444444&anim=0' style='border:0' width='88'/></a>
+</center>
+<!-- FEEDBURNER CODE -->
+<form action='http://feedburner.google.com/fb/a/mailverify' enctype='multipart/form-data' method='post' onsubmit='window.open(&#39;http://feedburner.google.com/fb/a/mailverify?uri=feedburner/funonrails&#39;, &#39;popupwindow&#39;, &#39;scrollbars=yes,width=550,height=520&#39;);return true' target='popupwindow'>
+<table border='0' cellpadding='0' cellspacing='0' style='margin-bottom:3px;'>
+<tr>
+<td><input class='feedinput' name='email' type='text' value='your e-mail'/>
+<input name='uri' type='hidden' value='feedburner/funonrails'/>
+<input name='loc' type='hidden' value='en_US'/>
+<input name='title' type='hidden' value='funonrails'/>
+</td>
+<td align='right' valign='top'><input id='imageField' name='imageField' src='http://lh3.ggpht.com/antonio.lupetti/SNQneo4omSI/AAAAAAAACXY/2ZJvxWwUVyg/sb.png' type='image'/></td>
+</tr>
+</table>
+</form>
+</div>
+<!-- CONNECT WITH ME -->
+<h3>
+<div>Connect With Me...</div>
+</h3>
+<div class='section-w' id='connectwithme'>
+<div style='font-size:12px;'>
+<iframe allowtransparency='true' frameborder='0' height='36' src='http://www.google.com/talk/service/badge/Show?tk=z01q6amlq995j63of1a4dgs86330rln4q60a1c8oog79125b1ku72u79kcq6ck2cfksisuq7e1jbohmguljhomq213g38savvhbsnurilkm6fsoi9lqrqi3jgmfdrq31kre46g040b64jn7fc06oo57uejji03309efd71kh9&w=159&h=36' width='159'></iframe>
+</div>
+<div class='separator' style='clear: both; text-align: center;'>
+<a class='linkopacity' href='http://twitter.com/funonrails'><img border='0' src='http://3.bp.blogspot.com/_4fVBL4fjrFI/ScemDyDCVoI/AAAAAAAAC2c/2konYKMmSks/s320/twitter.png'/>
+</a>
+<a class='linkopacity' href='http://www.blogger.com/profile/06975080952069130622'><img border='0' src='http://3.bp.blogspot.com/_4fVBL4fjrFI/Scel64keP1I/AAAAAAAAC1c/qROGCrL9-9U/s320/blogger.png'/></a>
+<a class='linkopacity' href='http://in.linkedin.com/in/sandipransing'><img border='0' src='http://2.bp.blogspot.com/_4fVBL4fjrFI/SYHSn9Z7iJI/AAAAAAAACEg/Yhzf-UJCPPQ/s400/linkedin.png'/></a>
+<a class='linkopacity' href='http://feeds.feedburner.com/funonrails'><img border='0' src='http://4.bp.blogspot.com/_4fVBL4fjrFI/Scel9qYYbwI/AAAAAAAAC18/FUe3bocbnbw/s320/feed.png'/></a>
+<!-- a class='linkopacity' href='www.facebook.com/sandip.ransing'><img border='0' src='http://4.bp.blogspot.com/_WmOmsgqsanw/S50Bpj0ClcI/AAAAAAAAAJo/5vQmTrBD4eY/s72/facebook.png'/></a -->
+</div>
+<fb:like-box class='fb_iframe_widget ' frameborder='0' header='false' href='http://www.facebook.com/pages/Fun-On-Rails/149678525079745' show_faces='true' stream='false' width='230'></fb:like-box>
+</div>
+<!-- ADS BLOCKS -->
+<h3>
+<div>
+<span class='small-right'>
+<a href='http://www.funonrails.com/p/direct-advertising-on-funonrails.html' style='font-weight:bold;'>Advertise</a></span>
+Sponsored links</div>
+</h3>
+<div class='section-w' id='categories' style='padding:14px 12px'>
+<table border='0' cellpadding='0' cellspacing='0' id='ads' width='100%'>
+<tr>
+<td height='74' valign='top'><img alt='Pune Rails Meetup' height='72' name='' src='http://photos3.meetupstatic.com/photos/event/a/6/c/7/global_13302695.jpeg' width='158'/></td>
+</tr>
+<tr>
+<td align='center' height='24' valign='top'><a href='http://www.meetup.com/Pune-Rails-Meetup/'>Pune Rails Meetup</a></td>
+</tr>
+<tr>
+<td align='right' height='74' valign='top'>
+<img alt='Ubuntu: For Desktops, Servers, Netbooks and in the cloud' border='0' height='72' src='http://lh5.googleusercontent.com/_WmOmsgqsanw/TUqBxQn1VkI/AAAAAAAABPE/S2Opn-dIBLI/try_ubuntu.png' width='158'/>
+</td>
+</tr>
+<tr>
+<td align='center' height='24' valign='top'><a href='http://releases.ubuntu.com/10.10/ubuntu-10.10-desktop-i386.iso'>Ubuntu 10.04 LTS</a></td>
+</tr>
+</table>
+</div>
+<!-- Categories -->
+<h3><div>Categories</div>
+</h3>
+<div class='section-w' id='categories'>
+<div style='float:left; width:45%;'>
+<div style='display:none'>
+</div>
+<ul>
+<li><a href='http://www.funonrails.com/search/label/ruby?max-results=10'>Ruby</a></li>
+<li><a href='http://www.funonrails.com/search/label/rails?max-results=10'>Rails</a></li>
+<li><a href='http://www.funonrails.com/search/label/radiant?max-results=10'>radiant</a></li>
+</ul>
+</div>
+<div id='site-reviews' style='float:right; width:45%'>
+<ul>
+<li><a href='http://www.funonrails.com/search/label/seo?max-results=10'>SEO</a></li>
+<li><a href='http://www.funonrails.com/search/label/ubuntu?max-results=10'>ubuntu</a></li>
+<li><a href='http://www.funonrails.com/search/label/vim?max-results=10'>vim</a></li>
+</ul>
+</div>
+<div class='spacer' style='height:0.1px'></div>
+</div>
+<!-- Categories -->
+<h3><div>Github Projects</div>
+</h3>
+<div class='section-w' id='categories'>
+<div style='float:left; width:100%;'>
+<div style='display:none'>
+</div>
+<ul>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/rails_tiny_mce'>Rails Tiny MCE</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/library_management_system'>Library Management System</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/rails_tooltip'>Rails Tootip using JQuery</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/rails_activecalendar'>Rails Active Calendar</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/prawn-example'>Prawn Example</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/radiant-session_management-extension'>Radiant Session Management Extension</a></li>
+<li><img alt='public' src='http://github.com/images/icons/public.png' title='GitHub Blog Badges for Everyone'/><a href='http://github.com/sandipransing/buildyourcv'>Build Your CV using Prawn Library</a><a href='http://github.com/sandipransing'>(View All)</a></li>
+</ul>
+</div>
+<div class='spacer' style='height:0.1px'></div>
+</div>
+<!-- ADSENSE -->
+<div class='section' id='BlogLink'><div class='widget HTML' id='HTML4'>
+<h2 class='title'>rails pic badge</h2>
+<div class='widget-content'>
+<div align='center'>
+<script type="text/javascript">var _pbwid = 91079;</script>
+<script type="text/javascript" src="http://www.picbadges.com/w/widget.js"></script>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=HTML&widgetId=HTML4&action=editWidget&sectionId=BlogLink' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML4"));' target='configHTML4' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div><div class='widget Label' id='Label1'>
+<style type='text/css'>
+.custom-label{line-height: 2;}
+</style>
+<h3><div>Labels</div></h3>
+<div class='section-w widget-content cloud-label-widget-content'>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/active%20record'>active record</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/coding%20standards'>coding standards</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/configuration'>configuration</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/delayed-job'>delayed-job</a>
+</span>
+<span class='label-size custom-label label-size-3'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/funday'>funday</a>
+</span>
+<span class='label-size custom-label label-size-1'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/gem'>gem</a>
+</span>
+<span class='label-size custom-label label-size-3'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/installation'>installation</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/jruby'>jruby</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/multiple%20versions%20of%20ruby'>multiple versions of ruby</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/mysql'>mysql</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/nginx%20passenger'>nginx passenger</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/puzzle'>puzzle</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/radiant'>radiant</a>
+</span>
+<span class='label-size custom-label label-size-5'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/rails'>rails</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/rails%202.3'>rails 2.3</a>
+</span>
+<span class='label-size custom-label label-size-1'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/regular%20expression'>regular expression</a>
+</span>
+<span class='label-size custom-label label-size-1'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/rmagick'>rmagick</a>
+</span>
+<span class='label-size custom-label label-size-5'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/ruby'>ruby</a>
+</span>
+<span class='label-size custom-label label-size-3'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/ruby%20on%20rails'>ruby on rails</a>
+</span>
+<span class='label-size custom-label label-size-4'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/rubyonrails'>rubyonrails</a>
+</span>
+<span class='label-size custom-label label-size-1'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/rvm'>rvm</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/search'>search</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/search%20engine%20optimization'>search engine optimization</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/thinking%20sphinx'>thinking sphinx</a>
+</span>
+<span class='label-size custom-label label-size-1'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/tinyMCE'>tinyMCE</a>
+</span>
+<span class='label-size custom-label label-size-4'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/ubuntu'>ubuntu</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/variables'>variables</a>
+</span>
+<span class='label-size custom-label label-size-2'>
+<a dir='ltr' href='http://www.funonrails.com/search/label/vim'>vim</a>
+</span>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=Label&widgetId=Label1&action=editWidget&sectionId=BlogLink' onclick='return _WidgetManager._PopupConfig(document.getElementById("Label1"));' target='configLabel1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+<div class='section-w' id='adsense-sidebar' style='padding:2px;'>
+<div class='section' id='adsense-sidebar-int'><div class='widget Poll' id='Poll1'>
+<h3><div>Which do you like most ?</div></h3>
+<div class='section-w' id='polls'>
+<iframe allowtransparency='true' frameborder='0' height='180' name='poll-widget3809473380942689936' src='http://www.google.com/reviews/polls/display/3809473380942689936/blogger_template/run_app?hideq=true&purl=http://www.funonrails.com/' style='border:none; width:100%;'></iframe>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=Poll&widgetId=Poll1&action=editWidget&sectionId=adsense-sidebar-int' onclick='return _WidgetManager._PopupConfig(document.getElementById("Poll1"));' target='configPoll1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div>
+<div class='widget AdSense' id='AdSense2'>
+<div class='section-w widget-content'>
+<script type="text/javascript"><!--
+google_ad_client="pub-2281736535196837";
+google_ad_host="pub-1556223355139109";
+google_ad_width=200;
+google_ad_height=200;
+google_ad_format="200x200_as";
+google_ad_type="text_image";
+google_ad_host_channel="0001";
+google_color_border="FFFFFF";
+google_color_bg="FFFFFF";
+google_color_link="333333";
+google_color_url="666666";
+google_color_text="5588AA";
+//--></script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=AdSense&widgetId=AdSense2&action=editWidget&sectionId=adsense-sidebar-int' onclick='return _WidgetManager._PopupConfig(document.getElementById("AdSense2"));' target='configAdSense2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</div>
+<!-- Twitter -->
+<h3><div>
+<span class='small-right'>
+<a href='http://twitter.com/sandipransing'>@sandipransing</a></span>
+Twitter
+</div>
+</h3>
+<div class='section-w'>
+<div class='twitter_list' id='twitter_div'><ul id='twitter_update_list'></ul></div>
+</div>
+<!-- Recent Comments -->
+<div class='section' id='sidebar-comments'><div class='widget BlogList' id='BlogList1'>
+<h3><div>Blog Links</div></h3>
+<div class='section-w'>
+<div class='blog-list-container' id='BlogList1_container'>
+<ul id='BlogList1_blogs'>
+<li style='display: block;'>
+<div class='blog-icon'>
+</div>
+<div class='blog-content'>
+<div class='blog-title'>
+<a href='http://railscasts.com' target='_blank'>
+Railscasts</a>
+</div>
+<div class='item-content'>
+<span class='item-title'>
+<a href='http://railscasts.com/episodes/300-contributing-to-open-source' target='_blank'>
+#300 Contributing to Open Source</a>
+</span>
+<div class='item-time'>
+22 hours ago
+</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li style='display: block;'>
+<div class='blog-icon'>
+</div>
+<div class='blog-content'>
+<div class='blog-title'>
+<a href='http://yehudakatz.com/' target='_blank'>
+Katz Got Your Tongue?</a>
+</div>
+<div class='item-content'>
+<span class='item-title'>
+<a href='http://feedproxy.google.com/~r/KatzGotYourTongue/~3/0ROvAEqCwNE/' target='_blank'>
+How to Marshal Procs Using Rubinius</a>
+</span>
+<div class='item-time'>
+3 days ago
+</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li style='display: block;'>
+<div class='blog-icon'>
+</div>
+<div class='blog-content'>
+<div class='blog-title'>
+<a href='http://rubylearning.com/blog' target='_blank'>
+RubyLearning Blog</a>
+</div>
+<div class='item-content'>
+<span class='item-title'>
+<a href='http://feedproxy.google.com/~r/LearningRubyBlog/~3/FyKL5FLqw0E/' target='_blank'>
+Ruby Programming 29th Batch: Registrations now open</a>
+</span>
+<div class='item-time'>
+2 weeks ago
+</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li style='display: block;'>
+<div class='blog-icon'>
+</div>
+<div class='blog-content'>
+<div class='blog-title'>
+<a href='http://www.akitaonrails.com/english' target='_blank'>
+English - AkitaOnRails.com</a>
+</div>
+<div class='item-content'>
+<span class='item-title'>
+<a href='http://www.akitaonrails.com/2011/09/19/rubyconf-brazil-2011-is-coming' target='_blank'>
+RubyConf Brazil 2011 is coming!</a>
+</span>
+<div class='item-time'>
+2 months ago
+</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+<li style='display: block;'>
+<div class='blog-icon'>
+</div>
+<div class='blog-content'>
+<div class='blog-title'>
+<a href='http://anilwadghule.com/' target='_blank'>
+Anil Wadghule</a>
+</div>
+<div class='item-content'>
+<span class='item-title'>
+<a href='http://feedproxy.google.com/~r/anildigital/~3/jXjdx6Q1NYU/pune-rails-meetup-rack-talk.html' target='_blank'>
+Rack talk at Pune Rails Meetup</a>
+</span>
+<div class='item-time'>
+1 year ago
+</div>
+</div>
+</div>
+<div style='clear: both;'></div>
+</li>
+</ul>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=BlogList&widgetId=BlogList1&action=editWidget&sectionId=sidebar-comments' onclick='return _WidgetManager._PopupConfig(document.getElementById("BlogList1"));' target='configBlogList1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div>
+</div></div>
+</div>
+<div class='spacer'></div>
+</div>
+</td></tr>
+</table>
+</div>
+<div id='container-footer'>
+<div id='footer'>
+<table border='0' cellpadding='0' cellspacing='0' width='100%'>
+<tr>
+<td>
+<div class='section' id='DownLink4'><div class='widget HTML' id='HTML2'>
+<h3><span>Recent Posts</span></h3>
+<div class='widget-content'>
+<script>
+function rp(json) {
+document.write('<ul>');
+
+for (var i = 0; i < numposts; i++) {
+document.write('<li>');
+var entry = json.feed.entry[i];
+var posttitle = entry.title.$t;
+var posturl;
+
+if (i == json.feed.entry.length) break;
+
+for (var k = 0; k < entry.link.length; k++) {
+if (entry.link[k].rel == 'alternate') {
+posturl = entry.link[k].href;
+break;
+}
+}
+
+posttitle = posttitle.link(posturl);
+var readmorelink = "(more)";
+readmorelink = readmorelink.link(posturl);
+var postdate = entry.published.$t;
+var cdyear = postdate.substring(0,4);
+var cdmonth = postdate.substring(5,7);
+var cdday = postdate.substring(8,10);
+var monthnames = new Array();
+monthnames[1] = "Jan";
+monthnames[2] = "Feb";
+monthnames[3] = "Mar";
+monthnames[4] = "Apr";
+monthnames[5] = "May";
+monthnames[6] = "Jun";
+monthnames[7] = "Jul";
+monthnames[8] = "Aug";
+monthnames[9] = "Sep";
+monthnames[10] = "Oct";
+monthnames[11] = "Nov";
+monthnames[12] = "Dec";
+
+if ("content" in entry) {
+var postcontent = entry.content.$t;
+} else if ("summary" in entry) {
+var postcontent = entry.summary.$t;
+} else
+var postcontent = "";
+var re = /<\S[^>]*>/g;
+postcontent = postcontent.replace(re, "");
+document.write(posttitle);
+
+if (showpostdate == true) document.write(' - ' + monthnames[parseInt(cdmonth,10)] + ' ' + cdday);
+
+if (showpostsummary == true) {
+if (postcontent.length < numchars) {
+document.write(postcontent);
+} else {
+postcontent = postcontent.substring(0, numchars);
+var quoteEnd = postcontent.lastIndexOf(" ");
+postcontent = postcontent.substring(0,quoteEnd);
+document.write(postcontent + '...' + readmorelink);
+}
+}
+document.write('</li>');
+}
+document.write('</ul>');
+
+}
+</script>
+
+<script>
+var numposts = 5;
+var showpostdate = false;
+var showpostsummary = false;
+var numchars = 100;
+</script>
+
+<script src="http://www.funonrails.com/feeds/posts/default?orderby=published&alt=json-in-script&callback=rp"></script><br />
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=HTML&widgetId=HTML2&action=editWidget&sectionId=DownLink4' onclick='return _WidgetManager._PopupConfig(document.getElementById("HTML2"));' target='configHTML2' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div></div>
+<script src='http://twitter.com/javascripts/blogger.js' type='text/javascript'></script>
+<script src='http://twitter.com/statuses/user_timeline/sandipransing.json?callback=twitterCallback2&count=4' text='text/javascript'></script>
+</td>
+<td>
+<div class='section' id='DownLink5'><div class='widget Followers' id='Followers1'>
+<h2 class='title'>Followers</h2>
+<div class='widget-content'>
+<div id='Followers1-wrapper'>
+<div style='margin-right:2px;'>
+<script type="text/javascript">
+        if (!window.google || !google.friendconnect) {
+          document.write('<script type="text/javascript"' +
+              'src="http://www.google.com/friendconnect/script/friendconnect.js">' +
+              '</scr' + 'ipt>');
+        }
+      </script>
+<script type="text/javascript">
+      if (!window.registeredBloggerCallbacks) {
+        window.registeredBloggerCallbacks = true;
+
+        
+
+        
+        gadgets.rpc.register('requestReload', function() {
+          document.location.reload();
+        });
+
+        
+        gadgets.rpc.register('requestSignOut', function(siteId) {
+          
+          google.friendconnect.container.openSocialSiteId = siteId;
+          google.friendconnect.requestSignOut();
+        });
+      }
+    </script>
+<script type="text/javascript">
+    
+    function registerGetBlogUrls() {
+      gadgets.rpc.register('getBlogUrls', function() {
+        var holder = {};
+        
+          
+            
+            
+              holder.currentPost = "http://www.blogger.com/feeds/5548650800003716246/posts/default/2717663066292292875";
+            
+            
+            
+              holder.currentComments = "http://www.blogger.com/feeds/5548650800003716246/2717663066292292875/comments/default";
+            
+            holder.currentPostUrl = "";
+            holder.currentPostId = 2717663066292292875
+          
+          
+          
+            holder.postFeed = "http://www.blogger.com/feeds/5548650800003716246/posts/default";
+          
+          
+          
+            holder.commentFeed = "http://www.blogger.com/feeds/5548650800003716246/comments/default";
+          
+          holder.currentBlogUrl = "http://www.funonrails.com/";
+          holder.currentBlogId = "5548650800003716246";
+        
+        return holder;
+      });
+    }
+  </script>
+<script type="text/javascript">
+  if (!window.registeredCommonBloggerCallbacks) {
+    window.registeredCommonBloggerCallbacks = true;
+
+    gadgets.rpc.register('resize_iframe', function(height) {
+      var el = document.getElementById(this['f']);
+      if (el) {
+        el.style.height = height + 'px';
+      }
+    });
+
+    
+    gadgets.rpc.register('set_pref', function() {});
+
+    registerGetBlogUrls();
+  }
+  </script>
+<div id="div-lqs1yyz51wkv" style="width: 100%; "></div>
+<script type="text/javascript">
+    var skin = {};
+    skin['FACE_SIZE'] = '32';
+    skin['HEIGHT'] = "260";
+    skin['TITLE'] = "Followers";
+    skin['BORDER_COLOR'] = "transparent";
+    skin['ENDCAP_BG_COLOR'] = "transparent";
+    skin['ENDCAP_TEXT_COLOR'] = "#000000";
+    skin['ENDCAP_LINK_COLOR'] = "#000000";
+    skin['ALTERNATE_BG_COLOR'] = "transparent";
+    
+    skin['CONTENT_BG_COLOR'] = "transparent";
+    skin['CONTENT_LINK_COLOR'] = "#000000";
+    skin['CONTENT_TEXT_COLOR'] = "#000000";
+    skin['CONTENT_SECONDARY_LINK_COLOR'] = "#FFFFFF";
+    skin['CONTENT_SECONDARY_TEXT_COLOR'] = "#000000";
+    skin['CONTENT_HEADLINE_COLOR'] = "#000000";
+    skin['FONT_FACE'] = "Arial";
+    google.friendconnect.container.setParentUrl("/");
+    google.friendconnect.container["renderMembersGadget"](
+    {id: "div-lqs1yyz51wkv",
+     height: 260,
+     
+     
+     
+     site: "08405954094005064482",
+      
+     locale: 'en' },
+     skin);
+  </script>
+</div>
+</div>
+<div class='clear'></div>
+<span class='widget-item-control'>
+<span class='item-control blog-admin'>
+<a class='quickedit' href='http://www.blogger.com/rearrange?blogID=5548650800003716246&widgetType=Followers&widgetId=Followers1&action=editWidget&sectionId=DownLink5' onclick='return _WidgetManager._PopupConfig(document.getElementById("Followers1"));' target='configFollowers1' title='Edit'>
+<img alt='' height='18' src='http://img1.blogblog.com/img/icon18_wrench_allbkg.png' width='18'/>
+</a>
+</span>
+</span>
+<div class='clear'></div>
+</div>
+</div></div>
+</td>
+<td>
+<div class='section' id='DownLink6'></div>
+</td>
+</tr>
+</table>
+<p align='right'><b>&#169; 2009-2010 FunOnRails</b>Designed by <a href='http://woork.blogspot.com'>Woork</a></p>
+</div>
+</div>
+</div>
+<!-- -disqus -->
+<!-- -disqus -->
+<script src='http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/smiley.js' type='text/javascript'></script><noscript><a href='http://bloggerstop.net' target='_blank'><span style='font-size: x-small;'>Add Smilies</span></a></noscript>
+<!--PAGINATION-STARTS-->
+<script type='text/javascript'>
+var pageCount=10;
+var displayPageNum=3;
+var upPageWord ='Previous';
+var downPageWord ='Next';
+</script>
+<script src='http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/pagination1.js' type='text/javascript'></script>
+<script src='http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/pagination2.js' type='text/javascript'></script>
+<!--PAGINATION-STOPS-->
+<!-- -Google analytics code - -->
+<script type='text/javascript'>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type='text/javascript'>
+try {
+var pageTracker = _gat._getTracker("UA-11343231-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<script type='text/javascript'>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type='text/javascript'>
+try {
+var pageTracker = _gat._getTracker("UA-11465954-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<script type="text/javascript">
+if (window.jstiming) window.jstiming.load.tick('widgetJsBefore');
+</script><script type="text/javascript" src="http://www.blogger.com/static/v1/widgets/1547472647-widgets.js"></script>
+<script type='text/javascript'>
+if (typeof(BLOG_attachCsiOnload) != 'undefined' && BLOG_attachCsiOnload != null) { window['blogger_templates_experiment_id'] = "templatesV1";window['blogger_blog_id'] = '5548650800003716246';BLOG_attachCsiOnload('item_'); }_WidgetManager._Init('http://www.blogger.com/rearrange?blogID=5548650800003716246','http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html','5548650800003716246');
+_WidgetManager._SetPageActionUrl('http://www.blogger.com/display?blogID=5548650800003716246','APq4FmBOIkGNzbTDOC9uUN72jBMvgjHsiUzf31t4xy21mfFWliFSMGPJCH1UGvRpc7SGdEEK5K_TQFhkvWGI3x-1-F4ozrDnBcXC0r_MclRg_CTnwbYUGQk=','AOuZoY7m-rX1alXEvMxuRgp4EincwTd1_g:1321944342376');
+_WidgetManager._SetDataContext([{'name': 'blog', 'data': {'title': 'Fun On Rails', 'pageType': 'item', 'url': 'http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html', 'canonicalUrl': 'http://www.funonrails.com/2010/03/railstinymce-rich-text-editor-for-ruby.html', 'homepageUrl': 'http://www.funonrails.com/', 'blogspotFaviconUrl': 'http://www.funonrails.com/favicon.ico', 'enabledCommentProfileImages': true, 'searchLabel': '', 'searchQuery': '', 'pageName': 'Rails Tiny MCE - A Rich Text Editor for ruby on rails', 'pageTitle': 'Fun On Rails: Rails Tiny MCE - A Rich Text Editor for ruby on rails', 'encoding': 'UTF-8', 'locale': 'en', 'isPrivate': false, 'isMobile': false, 'mobileClass': '', 'languageDirection': 'ltr', 'feedLinks': '\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Fun On Rails - Atom\42 href\75\42http://www.funonrails.com/feeds/posts/default\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/rss+xml\42 title\75\42Fun On Rails - RSS\42 href\75\42http://www.funonrails.com/feeds/posts/default?alt\75rss\42 /\76\n\74link rel\75\42service.post\42 type\75\42application/atom+xml\42 title\75\42Fun On Rails - Atom\42 href\75\42http://www.blogger.com/feeds/5548650800003716246/posts/default\42 /\76\n\74link rel\75\42EditURI\42 type\75\42application/rsd+xml\42 title\75\42RSD\42 href\75\42http://www.blogger.com/rsd.g?blogID\0755548650800003716246\42 /\76\n\74link rel\75\42alternate\42 type\75\42application/atom+xml\42 title\75\42Fun On Rails - Atom\42 href\75\42http://www.funonrails.com/feeds/2717663066292292875/comments/default\42 /\76\n', 'meTag': '', 'openIdOpTag': '', 'imageSrcTag': '', 'latencyHeadScript': '\74script type\75\42text/javascript\42\76(function() { var a\75window;function c(b){this.t\75{};this.tick\75function(b,i,d){d\75d!\75void 0?d:(new Date).getTime();this.t[b]\75[d,i]};this.tick(\42start\42,null,b)}var e\75new c;a.jstiming\75{Timer:c,load:e};try{var g\75null;a.chrome\46\46a.chrome.csi\46\46(g\75Math.floor(a.chrome.csi().pageT));g\75\75null\46\46a.gtbExternal\46\46(g\75a.gtbExternal.pageT());g\75\75null\46\46a.external\46\46(g\75a.external.pageT);g\46\46(a.jstiming.pt\75g)}catch(h){};a.tickAboveFold\75function(b){var f\0750;if(b.offsetParent){do f+\75b.offsetTop;while(b\75b.offsetParent)}b\75f;b\74\075750\46\46a.jstiming.load.tick(\42aft\42)};var j\75false;function k(){j||(j\75true,a.jstiming.load.tick(\42firstScrollTime\42))}a.addEventListener?a.addEventListener(\42scroll\42,k,false):a.attachEvent(\42onscroll\42,k);\n })();\74/script\076', 'mobileHeadScript': '', 'analyticsAccountNumber': ''}}]);
+_WidgetManager._RegisterWidget('_BlogListView', new _WidgetInfo('BlogList1', 'sidebar-comments', null, document.getElementById('BlogList1'), {'numItemsToShow': 0, 'totalItems': 5}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_BlogView', new _WidgetInfo('Blog1', 'main_s', null, document.getElementById('Blog1'), {'cmtInteractionsEnabled': false, 'showBacklinks': true, 'postId': '2717663066292292875', 'lightboxEnabled': true, 'lightboxModuleUrl': 'http://www.blogger.com/static/v1/jsbin/1713140854-lbx.js', 'lightboxCssUrl': 'http://www.blogger.com/static/v1/v-css/2113861620-lightbox_bundle.css'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML2', 'DownLink4', null, document.getElementById('HTML2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_FollowersView', new _WidgetInfo('Followers1', 'DownLink5', null, document.getElementById('Followers1'), {'title': 'Followers', 'codeSnippet': '\74script type\75\42text/javascript\42\76\n        if (!window.google || !google.friendconnect) {\n          document.write(\47\74script type\75\42text/javascript\42\47 +\n              \47src\75\42http://www.google.com/friendconnect/script/friendconnect.js\42\76\47 +\n              \47\74/scr\47 + \47ipt\76\47);\n        }\n      \74/script\76\n\74script type\75\42text/javascript\42\76\n      if (!window.registeredBloggerCallbacks) {\n        window.registeredBloggerCallbacks \75 true;\n\n        \n\n        \n        gadgets.rpc.register(\47requestReload\47, function() {\n          document.location.reload();\n        });\n\n        \n        gadgets.rpc.register(\47requestSignOut\47, function(siteId) {\n          \n          google.friendconnect.container.openSocialSiteId \75 siteId;\n          google.friendconnect.requestSignOut();\n        });\n      }\n    \74/script\76\n\74script type\75\42text/javascript\42\76\n    \n    function registerGetBlogUrls() {\n      gadgets.rpc.register(\47getBlogUrls\47, function() {\n        var holder \75 {};\n        \n          \n            \n            \n              holder.currentPost \75 \42http://www.blogger.com/feeds/5548650800003716246/posts/default/2717663066292292875\42;\n            \n            \n            \n              holder.currentComments \75 \42http://www.blogger.com/feeds/5548650800003716246/2717663066292292875/comments/default\42;\n            \n            holder.currentPostUrl \75 \42\42;\n            holder.currentPostId \75 2717663066292292875\n          \n          \n          \n            holder.postFeed \75 \42http://www.blogger.com/feeds/5548650800003716246/posts/default\42;\n          \n          \n          \n            holder.commentFeed \75 \42http://www.blogger.com/feeds/5548650800003716246/comments/default\42;\n          \n          holder.currentBlogUrl \75 \42http://www.funonrails.com/\42;\n          holder.currentBlogId \75 \0425548650800003716246\42;\n        \n        return holder;\n      });\n    }\n  \74/script\76\n\74script type\75\42text/javascript\42\76\n  if (!window.registeredCommonBloggerCallbacks) {\n    window.registeredCommonBloggerCallbacks \75 true;\n\n    gadgets.rpc.register(\47resize_iframe\47, function(height) {\n      var el \75 document.getElementById(this[\47f\47]);\n      if (el) {\n        el.style.height \75 height + \47px\47;\n      }\n    });\n\n    \n    gadgets.rpc.register(\47set_pref\47, function() {});\n\n    registerGetBlogUrls();\n  }\n  \74/script\76\n\74div id\75\42div-121vwgkngz32p\42 style\75\42width: 100%; \42\76\74/div\76\n\74script type\75\42text/javascript\42\76\n    var skin \75 {};\n    skin[\47FACE_SIZE\47] \75 \04732\47;\n    skin[\47HEIGHT\47] \75 \042260\42;\n    skin[\47TITLE\47] \75 \42Followers\42;\n    skin[\47BORDER_COLOR\47] \75 \42transparent\42;\n    skin[\47ENDCAP_BG_COLOR\47] \75 \42transparent\42;\n    skin[\47ENDCAP_TEXT_COLOR\47] \75 \42#000000\42;\n    skin[\47ENDCAP_LINK_COLOR\47] \75 \42#000000\42;\n    skin[\47ALTERNATE_BG_COLOR\47] \75 \42transparent\42;\n    \n    skin[\47CONTENT_BG_COLOR\47] \75 \42transparent\42;\n    skin[\47CONTENT_LINK_COLOR\47] \75 \42#000000\42;\n    skin[\47CONTENT_TEXT_COLOR\47] \75 \42#000000\42;\n    skin[\47CONTENT_SECONDARY_LINK_COLOR\47] \75 \42#FFFFFF\42;\n    skin[\47CONTENT_SECONDARY_TEXT_COLOR\47] \75 \42#000000\42;\n    skin[\47CONTENT_HEADLINE_COLOR\47] \75 \42#000000\42;\n    skin[\47FONT_FACE\47] \75 \42Arial\42;\n    google.friendconnect.container.setParentUrl(\42/\42);\n    google.friendconnect.container[\42renderMembersGadget\42](\n    {id: \42div-121vwgkngz32p\42,\n     height: 260,\n     \n     \n     \n     site: \04208405954094005064482\42,\n      \n     locale: \47en\47 },\n     skin);\n  \74/script\076'}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML3', 'DownLink2', null, document.getElementById('HTML3'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense1', 'DownLink2', null, document.getElementById('AdSense1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_PollView', new _WidgetInfo('Poll1', 'adsense-sidebar-int', null, document.getElementById('Poll1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_AdSenseView', new _WidgetInfo('AdSense2', 'adsense-sidebar-int', null, document.getElementById('AdSense2'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_HTMLView', new _WidgetInfo('HTML4', 'BlogLink', null, document.getElementById('HTML4'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_LabelView', new _WidgetInfo('Label1', 'BlogLink', null, document.getElementById('Label1'), {}, 'displayModeFull'));
+_WidgetManager._RegisterWidget('_NavbarView', new _WidgetInfo('Navbar1', 'navbar'));
+</script>
+</body>
+</html>

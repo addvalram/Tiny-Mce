@@ -1,0 +1,19 @@
+<div class="functionLinks"> 
+<%= link_to '|| Home <img src="/images/add.gif" alt="Klematis" width="50" height="20" />||', blogs_path %>
+<%= link_to 'Edit <img src="/images/Edit-icon.png" alt="Klematis" width="20" height="20" />||', edit_blog_path(@blog) %>
+</div>
+
+<p>
+  <b>Topic:</b>
+  <%=h @blog.topic %>
+</p>
+
+<p>
+	<div class="containerBshow">
+		 <b>Comment:</b>
+  		 <%= @blog.comment %>
+	</div>
+</p> 
+<br />
+
+
